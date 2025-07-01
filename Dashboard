@@ -1,1 +1,221 @@
-d
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🍇 Vino Bot Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      height: 100vh;
+      background: #1e1e2f;
+      color: #e0e0e0;
+    }
+    .sidebar {
+      width: 240px;
+      background: #2c2c3e;
+      padding: 1.5rem;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .sidebar h2 {
+      color: #e3aaff;
+      margin-bottom: 2rem;
+      font-size: 1.6rem;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar ul li {
+      margin-bottom: 1rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      background: #3a3a55;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .sidebar ul li:hover,
+    .sidebar ul li.active {
+      background: #6f2a8e;
+      color: #fff;
+    }
+    .main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #6f2a8e;
+    }
+    .lang-select {
+      margin-left: auto;
+      background: #3a3a55;
+      color: #fff;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+    .cards {
+      display: flex;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .card {
+      flex: 1;
+      background: #2f2f48;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .status {
+      font-weight: bold;
+    }
+    .status.online { color: #4cd137; }
+    .status.offline { color: #ff4d4d; }
+    .logs {
+      background: #2c2c3e;
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+    .logs h2 {
+      margin-bottom: 1rem;
+      color: #e3aaff;
+    }
+    .logs ul {
+      list-style: none;
+    }
+    .logs ul li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #444;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+      background: #2c2c3e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>🍇 Vino Bot</h2>
+    <ul>
+      <li class="active" data-label="menu_dashboard">Dashboard</li>
+      <li data-label="menu_server">Server</li>
+      <li data-label="menu_tickets">Tickets</li>
+      <li data-label="menu_moderation">Moderation</li>
+      <li data-label="menu_settings">Einstellungen</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1 data-label="dashboard_title">Dashboard Übersicht</h1>
+      <select class="lang-select" onchange="setLanguage(this.value)">
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="en">🇬🇧 English</option>
+      </select>
+      <div class="user">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" />
+        <span>Paul#1234</span>
+      </div>
+    </header>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-label="status_title">Bot Status</h3>
+        <p class="status online" data-label="status_value">🟢 Online</p>
+      </div>
+      <div class="card">
+        <h3 data-label="server_count">Server</h3>
+        <p>127</p>
+      </div>
+      <div class="card">
+        <h3 data-label="tickets_today">Tickets Heute</h3>
+        <p>14</p>
+      </div>
+    </div>
+
+    <div class="logs">
+      <h2 data-label="logs_title">📋 Letzte Aktionen</h2>
+      <ul>
+        <li data-label="log_warn">✅ Verwarnung an @Nutzer (Grund: Spam)</li>
+        <li data-label="log_ticket">🎫 Ticket #1234 geschlossen</li>
+        <li data-label="log_settings">⚙️ Einstellungen gespeichert</li>
+      </ul>
+    </div>
+
+    <footer>
+      &copy; 2025 Vino Bot Team – Alle Rechte vorbehalten.
+    </footer>
+  </div>
+
+  <script>
+    const translations = {
+      de: {
+        menu_dashboard: "Dashboard",
+        menu_server: "Server",
+        menu_tickets: "Tickets",
+        menu_moderation: "Moderation",
+        menu_settings: "Einstellungen",
+        dashboard_title: "Dashboard Übersicht",
+        status_title: "Bot Status",
+        status_value: "🟢 Online",
+        server_count: "Server",
+        tickets_today: "Tickets Heute",
+        logs_title: "📋 Letzte Aktionen",
+        log_warn: "✅ Verwarnung an @Nutzer (Grund: Spam)",
+        log_ticket: "🎫 Ticket #1234 geschlossen",
+        log_settings: "⚙️ Einstellungen gespeichert"
+      },
+      en: {
+        menu_dashboard: "Dashboard",
+        menu_server: "Servers",
+        menu_tickets: "Tickets",
+        menu_moderation: "Moderation",
+        menu_settings: "Settings",
+        dashboard_title: "Dashboard Overview",
+        status_title: "Bot Status",
+        status_value: "🟢 Online",
+        server_count: "Servers",
+        tickets_today: "Tickets Today",
+        logs_title: "📋 Recent Actions",
+        log_warn: "✅ Warned @user (Reason: Spam)",
+        log_ticket: "🎫 Ticket #1234 closed",
+        log_settings: "⚙️ Settings saved"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.querySelectorAll("[data-label]").forEach(el => {
+        const key = el.getAttribute("data-label");
+        el.innerText = translations[lang][key];
+      });
+    }
+
+    // Standard: Deutsch
+    setLanguage("de");
+  </script>
+
+</body>
+</html>
+
